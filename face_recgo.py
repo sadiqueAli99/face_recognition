@@ -168,13 +168,7 @@ while True:
         if key == ord("q"):
             break
 
-# query2="SELECT * FROM emp_details WHERE ID IN (SELECT MAX(ID) FROM emp_details GROUP BY empname,date) UNION SELECT * FROM emp_details WHERE ID IN (SELECT MIN(ID) FROM emp_details GROUP BY empname,date ) order by empname asc; "
-# res=con.execute(query2)
 
-# mydb.commit()
-# print(res)
-# print(name)
-# print(names)
 mydb.close()
 # do a bit of cleanup
 cv2.destroyAllWindows()
