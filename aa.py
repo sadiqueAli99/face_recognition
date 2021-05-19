@@ -1,5 +1,5 @@
 # USAGE
-# python live_stream.py --encodings encoding.pickle
+# python aa.py --encodings encoding.pickle
 
 # import the necessary packages
 from imutils.video import VideoStream
@@ -18,7 +18,7 @@ mydb = mysql.connector.connect(
     host="localhost",
     user="root",
     passwd="",
-    database="ram"
+    database="backup"
 )
 con = mydb.cursor()
 emplid = 0
@@ -91,12 +91,20 @@ while True:
             # will select first entry in the dictionary)
             name = max(counts, key=counts.get)
             print(name)
-
+            # if name == 'barath':
+            #     empid = 1
+            # elif name == 'bhvanesh':
+            #     empid = 2
+            # elif name == 'sadique':
+            #     empid = 3
+            # elif name == 'sathish':
+            #     empid = 4
+            # elif name == 'shwetha':
+            #     empid = 5
 
             query2="select * from usermaster where Name=%s "
             con.execute(query2, (name,))
             res=con.fetchall()
-            print(res)
             for row in res:
                 emplid=row[0]
 
@@ -111,15 +119,26 @@ while True:
 
 
 
+
+
+
             curtime = datetime.datetime.now()  # current date
             formatted = curtime.strftime('%d-%m-%Y')# convert your date in a string format before inserting it to your database
 
 
+            # query1 = "INSERT INTO emp_details(empname) VALUES(name)";
 
-
-            query1 = "INSERT INTO attendenceregister  (Date,EmployeeID,Name,GeoTagLocationID) VALUES ('%s','%s','%s','%s')" % (formatted,emplid,name,geolocation);
+            query1 = "INSERT INTO attendenceregister  (Date,EmployeeID,GeoTagLocationID) VALUES ('%s','%s','%s')" % (formatted,emplid,geolocation);
             con.execute(query1)
             mydb.commit()
+
+            query4 = "select * from attendenceregister "
+            con.execute(query4)
+            res = con.fetchall()
+            print(res)
+            for row in res:
+                emplid=row[1]
+            print(emplid)
 
         # update the list of names
         names.append(name)
