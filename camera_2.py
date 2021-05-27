@@ -1,5 +1,5 @@
 # USAGE
-# python aa.py --encodings encoding.pickle
+# python camera_2.py --encodings encoding.pickle
 
 # import the necessary packages
 from imutils.video import VideoStream
@@ -97,7 +97,7 @@ while True:
                 message = """Subject: Alert message
 
                 Hi {name}, 
-                        unknown person found at first floor building. """
+                        unknown person found at second floor building. """
                 sendmail.alert(message)
 
             else:

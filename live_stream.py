@@ -9,6 +9,7 @@ import imutils
 import pickle
 import time
 import cv2
+import sendmail
 
 import datetime
 
@@ -85,44 +86,44 @@ while True:
             for i in matchedIdxs:
                 name = data["names"][i]
                 counts[name] = counts.get(name, 0) + 1
-
             # determine the recognized face with the largest number
             # of votes (note: in the event of an unlikely tie Python
             # will select first entry in the dictionary)
             name = max(counts, key=counts.get)
             print(name)
-
-
-            query2="select * from usermaster where Name=%s "
-            con.execute(query2, (name,))
-            res=con.fetchall()
-            print(res)
-            for row in res:
-                emplid=row[0]
-
-
-
-            query3 = "select * from geotaglocationmaster where CameraName=%s "
-            con.execute(query3, ('camera_1',))
-            res = con.fetchall()
-            for row in res:
-                geolocation = row[0]
+            if name=='UnKnown':
+                sendmail.alert()
+            else:
+                query2="select * from usermaster where Name=%s "
+                con.execute(query2, (name,))
+                res=con.fetchall()
+                #print(res)
+                for row in res:
+                    emplid=row[0]
 
 
 
-
-            curtime = datetime.datetime.now()  # current date
-            formatted = curtime.strftime('%d-%m-%Y')# convert your date in a string format before inserting it to your database
+                query3 = "select * from geotaglocationmaster where CameraName=%s "
+                con.execute(query3, ('camera_1',))
+                res = con.fetchall()
+                for row in res:
+                    geolocation = row[0]
 
 
 
 
-            query1 = "INSERT INTO attendenceregister  (Date,EmployeeID,Name,GeoTagLocationID) VALUES ('%s','%s','%s','%s')" % (formatted,emplid,name,geolocation);
-            con.execute(query1)
-            mydb.commit()
+                curtime = datetime.datetime.now()  # current date
+                formatted = curtime.strftime('%d-%m-%Y')# convert your date in a string format before inserting it to your database
 
-        # update the list of names
-        names.append(name)
+
+
+
+                query1 = "INSERT INTO attendenceregister  (Date,EmployeeID,Name,GeoTagLocationID) VALUES ('%s','%s','%s','%s')" % (formatted,emplid,name,geolocation);
+                con.execute(query1)
+                mydb.commit()
+
+            # update the list of names
+            names.append(name)
 
     # loop over the recognized faces
     for ((top, right, bottom, left), name) in zip(boxes, names):
