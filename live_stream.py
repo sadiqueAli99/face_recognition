@@ -92,7 +92,11 @@ while True:
             name = max(counts, key=counts.get)
             print(name)
             if name=='UnKnown':
-                sendmail.alert()
+                message = """Subject: Alert Message
+
+                Hello {name}, 
+                        unknown person found at main building. """
+                sendmail.alert(message)
             else:
                 query2="select * from usermaster where Name=%s "
                 con.execute(query2, (name,))

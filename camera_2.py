@@ -94,10 +94,10 @@ while True:
             print(name)
             employee=['sadique','shwetha']
             if name in employee:
-                message = """Subject: Alert message
+                message = """Subject: Alert Message
 
-                Hi {name}, 
-                        unknown person found at second floor building. """
+                Hello {name}, 
+                        unknown person found at second floor of main building. """
                 sendmail.alert(message)
 
             else:
