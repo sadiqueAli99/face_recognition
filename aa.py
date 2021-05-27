@@ -92,7 +92,7 @@ while True:
             # will select first entry in the dictionary)
             name = max(counts, key=counts.get)
             print(name)
-            employee=['sadique','shwetha']
+            employee=['sadique','bhuvanesh']
             if name in employee:
                 message = """Subject: Alert Message
 
