@@ -2,11 +2,7 @@ import csv, smtplib, ssl
 
 
 def alert(parameter):
-    message=parameter
-    # message = """Subject: Alert message
-    #
-    # Hi {name},
-    #         unknown person found at main building. """
+    message = parameter
     from_address = "sadique4mh17mca16@gmail.com"
     password = "Sadiqali@123"
 
