@@ -95,7 +95,7 @@ while True:
                 message = """Subject: Alert Message
 
                 Hello {name}, 
-                        unknown person found at main building. """
+                        unknown person found at first floor of main building. """
                 sendmail.alert(message)
             else:
                 query2="select * from usermaster where Name=%s "

@@ -108,7 +108,7 @@ while True:
                     emplid = row[0]
 
                 query3 = "select * from geotaglocationmaster where CameraName=%s "
-                con.execute(query3, ('camera_1',))
+                con.execute(query3, ('camera_2',))
                 res = con.fetchall()
                 for row in res:
                     geolocation = row[0]
